@@ -10,7 +10,8 @@
 class Engine
 {
     public:
-        static Engine* GetInstance() {
+        static Engine* GetInstance() 
+        {
             return s_Instance = (s_Instance != nullptr) ? s_Instance : new Engine();
         }
 

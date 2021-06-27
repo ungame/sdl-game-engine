@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include "TextureManager.h"
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -27,19 +28,24 @@ bool Engine::Init()
         return false;
     }
     
-    std::cout << "Engine initialized!" << std::endl;
+    SDL_Log("Engine initialized!");
+
+    TextureManager::GetInstance()->Load("tree", "assets\\tree.png");
 
    return m_IsRunning = true;
 }
 
 void Engine::Update(float dt)
 {
+
 } 
 
 void Engine::Render()
 {
     SDL_SetRenderDrawColor(m_Renderer, 124, 218, 254, 255);
     SDL_RenderClear(m_Renderer);
+
+    TextureManager::GetInstance()->Draw("tree", 100, 100, 347, 465);
     SDL_RenderPresent(m_Renderer);
 }
 
@@ -61,12 +67,16 @@ void Engine::Events()
 
 bool Engine::Clean()
 {
-    return false;
+    TextureManager::GetInstance()->Clean();
+    SDL_DestroyRenderer(m_Renderer);
+    SDL_DestroyWindow(m_Window);
+    IMG_Quit();
+    SDL_Quit();
+    SDL_Log("Engine finished!");
+    return true;
 }
 
 void Engine::Quit()
 {
     m_IsRunning = false;
-    SDL_Quit();
-    std::cout << "Engine finished!" << std::endl;
 }

@@ -12,6 +12,8 @@ https://www.libsdl.org/projects/SDL_image/
     mkdir src
     mkdir include
     mkdir bin
+    mkdir obj
+    mkdir assets
 ```
 
 ## Tutorial
