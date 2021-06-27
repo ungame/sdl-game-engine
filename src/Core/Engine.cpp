@@ -1,8 +1,11 @@
 #include "Engine.h"
 #include "TextureManager.h"
-#include <iostream>
+#include "Vector2D.h"
+#include "Transform.h"
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+
 
 Engine* Engine::s_Instance = nullptr;
 
@@ -14,7 +17,7 @@ bool Engine::Init()
         return false;
     }
 
-    m_Window = SDL_CreateWindow("Game Engine v0.0.1", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    m_Window = SDL_CreateWindow("SDL Game Engine v0.0.1", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     if ( m_Window == nullptr )
     {
         SDL_Log("Failed to create Window: %s", SDL_GetError());
@@ -31,6 +34,9 @@ bool Engine::Init()
     SDL_Log("Engine initialized!");
 
     TextureManager::GetInstance()->Load("tree", "assets\\tree.png");
+
+    Transform tf;
+    tf.Log("");
 
    return m_IsRunning = true;
 }
