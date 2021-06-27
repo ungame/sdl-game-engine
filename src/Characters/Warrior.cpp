@@ -8,9 +8,9 @@
 
 Warrior::Warrior(Properties* props): Character(props)
 {
-    m_Row = 0;
+    m_Row = 0; // spritesheet de "idle" do warrior só tem 1 linha
     m_Frame = 0;
-    m_FrameCount = 8;
+    m_FrameCount = 8; // spritesheet de "idle" do warrior tem 8 frames
     m_AnimSpeed = 80;
 }
 

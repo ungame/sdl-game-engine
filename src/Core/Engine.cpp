@@ -36,6 +36,7 @@ bool Engine::Init()
 
     SDL_Log("Loading textures...");
     TextureManager::GetInstance()->Load("player", "assets\\idle.png");
+    // propriedades depende do altura e largura do spritesheet
     player = new Warrior(new Properties("player", 100, 200, 1280 / 8, 111));
     player->Log();
     
@@ -53,9 +54,7 @@ void Engine::Render()
     SDL_SetRenderDrawColor(m_Renderer, 124, 218, 254, 255);
     SDL_RenderClear(m_Renderer);
 
-    
     player->Draw();
-    // TextureManager::GetInstance()->DrawFrame("player", 0, 0, 170, 111, 0, 1);
     SDL_RenderPresent(m_Renderer);
 }
 
