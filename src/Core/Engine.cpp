@@ -1,13 +1,14 @@
 #include "Engine.h"
 #include "TextureManager.h"
-#include "Vector2D.h"
-#include "Transform.h"
+
+#include "Warrior.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
 
 Engine* Engine::s_Instance = nullptr;
+Warrior* player = nullptr;
 
 bool Engine::Init()
 {
@@ -33,17 +34,18 @@ bool Engine::Init()
     
     SDL_Log("Engine initialized!");
 
-    TextureManager::GetInstance()->Load("tree", "assets\\tree.png");
-
-    Transform tf;
-    tf.Log("");
-
-   return m_IsRunning = true;
+    SDL_Log("Loading textures...");
+    TextureManager::GetInstance()->Load("player", "assets\\idle.png");
+    player = new Warrior(new Properties("player", 100, 200, 1280 / 8, 111));
+    player->Log();
+    
+    return m_IsRunning = true;
 }
 
 void Engine::Update(float dt)
 {
-
+    player->Update(dt);
+    player->Log();
 } 
 
 void Engine::Render()
@@ -51,7 +53,9 @@ void Engine::Render()
     SDL_SetRenderDrawColor(m_Renderer, 124, 218, 254, 255);
     SDL_RenderClear(m_Renderer);
 
-    TextureManager::GetInstance()->Draw("tree", 100, 100, 347, 465);
+    
+    player->Draw();
+    // TextureManager::GetInstance()->DrawFrame("player", 0, 0, 170, 111, 0, 1);
     SDL_RenderPresent(m_Renderer);
 }
 

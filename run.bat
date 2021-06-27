@@ -6,6 +6,7 @@ del obj\*.o
 g++ -c src\*.cpp -std=c++14 -m64 -g -Wall -I include
 g++ -c src\Core\*.cpp -std=c++14 -m64 -g -Wall -I include
 g++ -c src\Graphics\*.cpp -std=c++14 -m64 -g -Wall -I include
+g++ -c src\Characters\*.cpp -std=c++14 -m64 -g -Wall -I include
 
 move *.o obj
 
