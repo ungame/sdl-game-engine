@@ -1,7 +1,7 @@
 #include "Engine.h"
 #include "Input.h"
 #include "TextureManager.h"
-
+#include "Timer.h"
 #include "Warrior.h"
 
 #include <SDL2/SDL.h>
@@ -46,8 +46,9 @@ bool Engine::Init()
     return m_IsRunning = true;
 }
 
-void Engine::Update(float dt)
+void Engine::Update()
 {
+    float dt = Timer::GetInstance()->GetDeltaTime();
     player->Update(dt);
 } 
 
