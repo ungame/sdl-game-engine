@@ -38,6 +38,7 @@ bool Engine::Init()
 
     SDL_Log("Loading textures...");
     TextureManager::GetInstance()->Load("player", "assets\\idle.png");
+    TextureManager::GetInstance()->Load("player_run", "assets\\Run.png");
 
     // propriedades depende do altura e largura do spritesheet
     player = new Warrior(new Properties("player", 100, 200, 1280 / 8, 111));
@@ -47,11 +48,6 @@ bool Engine::Init()
 
 void Engine::Update(float dt)
 {
-    if ( Input::GetInstance()->GetKeyDown(SDL_SCANCODE_A) )
-    {
-        SDL_Log("Key A pushed!");
-    }
-
     player->Update(dt);
 } 
 
