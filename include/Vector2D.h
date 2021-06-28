@@ -25,9 +25,9 @@ class Vector2D
         }
 
         // multiplication *
-        inline Vector2D operator * (const Vector2D& v2) const 
+        inline Vector2D operator * (const float scalar) const 
         {
-            return Vector2D(X * v2.X, Y * v2.Y);
+            return Vector2D(X * scalar, Y * scalar);
         }
 
         void Log(std::string msg = "")
