@@ -36,9 +36,9 @@ bool Engine::Init()
 
     SDL_Log("Loading textures...");
     TextureManager::GetInstance()->Load("player", "assets\\idle.png");
+
     // propriedades depende do altura e largura do spritesheet
     player = new Warrior(new Properties("player", 100, 200, 1280 / 8, 111));
-    player->Log();
     
     return m_IsRunning = true;
 }
@@ -46,7 +46,6 @@ bool Engine::Init()
 void Engine::Update(float dt)
 {
     player->Update(dt);
-    player->Log();
 } 
 
 void Engine::Render()

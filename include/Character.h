@@ -2,7 +2,6 @@
 #define CHARACTER_H
 
 #include "GameObject.h"
-#include <string>
 
 class Character : public GameObject
 {

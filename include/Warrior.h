@@ -2,6 +2,7 @@
 #define WARRIOR_H
 
 #include "Character.h"
+#include "Animation.h"
 
 class Warrior : public Character
 {
@@ -15,8 +16,8 @@ class Warrior : public Character
         void Log();
 
     private:
-        int m_Row, m_Frame, m_FrameCount;
-        int m_AnimSpeed;
+        Animation* m_Animation;
+        
 };
 
 #endif
