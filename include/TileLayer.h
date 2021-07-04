@@ -8,9 +8,13 @@
 struct Tileset
 {
     int FirstID, LastID;
-    int NumRow, ColCount;
+    int RowCount, ColCount;
     int TileCount, TileSize;
     std::string Name, Source;
+    
+    void Log() {
+        
+    }
 };
 
 using TilesetList = std::vector<Tileset>;

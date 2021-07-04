@@ -3,6 +3,8 @@
 #include "TextureManager.h"
 #include "Timer.h"
 #include "Warrior.h"
+#include "MapParser.h"
+#include <iostream>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -20,7 +22,9 @@ bool Engine::Init()
         return false;
     }
 
-    m_Window = SDL_CreateWindow("SDL Game Engine v0.0.1", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    SDL_WindowFlags window_flags = (SDL_WindowFlags) (SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
+
+    m_Window = SDL_CreateWindow("SDL Game Engine v0.0.1", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, window_flags);
     if ( m_Window == nullptr )
     {
         SDL_Log("Failed to create Window: %s", SDL_GetError());
@@ -36,6 +40,16 @@ bool Engine::Init()
     
     SDL_Log("Engine initialized!");
 
+    if(!MapParser::GetInstance()->Load())
+    {
+        SDL_LogError(1, "Failed to load map");
+        return 1;
+    }
+
+    SDL_Log("Load map success!");
+
+    m_LevelMap = MapParser::GetInstance()->GetMap("MAP");
+
     SDL_Log("Loading textures...");
     TextureManager::GetInstance()->Load("player", "assets\\idle.png");
     TextureManager::GetInstance()->Load("player_run", "assets\\Run.png");
@@ -49,6 +63,7 @@ bool Engine::Init()
 void Engine::Update()
 {
     float dt = Timer::GetInstance()->GetDeltaTime();
+    m_LevelMap->Update();
     player->Update(dt);
 } 
 
@@ -57,6 +72,7 @@ void Engine::Render()
     SDL_SetRenderDrawColor(m_Renderer, 124, 218, 254, 255);
     SDL_RenderClear(m_Renderer);
 
+    m_LevelMap->Render();
     player->Draw();
     SDL_RenderPresent(m_Renderer);
 }

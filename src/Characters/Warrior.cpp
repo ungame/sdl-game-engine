@@ -39,7 +39,7 @@ void Warrior::Update(float dt)
         m_Animation->SetProps("player_run", 0, 8, 100);
     }
 
-    SDL_Log("%f", dt);
+    // SDL_Log("%f", dt);
     m_RigidBody->Update(dt);
   
     m_Transform->TranslateX(m_RigidBody->Position().X);

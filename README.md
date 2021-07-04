@@ -6,15 +6,15 @@ https://www.libsdl.org/download-2.0.php
 
 https://www.libsdl.org/projects/SDL_image/
 
-## Create directories
+## Tools
 
-```cmd
-    mkdir src
-    mkdir include
-    mkdir bin
-    mkdir obj
-    mkdir assets
-```
+- Map Editor: https://www.mapeditor.org/
+
+## Free Assets:
+
+https://itch.io/
+
+- Tilesets: https://itch.io/search?q=tileset
 
 ## Tutorial
 
