@@ -13,12 +13,14 @@ TileLayer::TileLayer(int tileSize, int rowCount, int colCount, TileMap tileMap, 
 
     for(unsigned int i = 0; i < m_Tilesets.size(); i++)
     {
-        bool ok = TextureManager::GetInstance()->Load(m_Tilesets[i].Name, "assets\\maps\\" + m_Tilesets[i].Source);
+        std::string filepath =  "assets\\maps\\" + m_Tilesets[i].Source;
+        bool ok = TextureManager::GetInstance()->Load(m_Tilesets[i].Name, filepath);
         if(!ok)
         {
-            SDL_LogError(1, "Failed Load asset: %s", "assets\\maps\\" + m_Tilesets[i].Source);
-        } else {
-            SDL_Log("Load asset: Name = %s, Source = %s", m_Tilesets[i].Name.c_str(), m_Tilesets[i].Source.c_str());
+            SDL_LogError(1, "Failed Load asset: %s", filepath.c_str());
+        } 
+        else {
+            SDL_Log("Load asset: Name = %s, Source = %s", m_Tilesets[i].Name.c_str(), filepath.c_str());
         }
     }
 }

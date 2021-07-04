@@ -4,6 +4,7 @@
 #include "Timer.h"
 #include "Warrior.h"
 #include "MapParser.h"
+#include "Camera.h"
 #include <iostream>
 
 #include <SDL2/SDL.h>
@@ -53,9 +54,12 @@ bool Engine::Init()
     SDL_Log("Loading textures...");
     TextureManager::GetInstance()->Load("player", "assets\\idle.png");
     TextureManager::GetInstance()->Load("player_run", "assets\\Run.png");
+    TextureManager::GetInstance()->Load("bg", "assets\\images\\bg.png");
 
     // propriedades depende do altura e largura do spritesheet
     player = new Warrior(new Properties("player", 100, 200, 1280 / 8, 111));
+
+    Camera::GetInstance()->SetTarget(player->GetOrigin());
     
     return m_IsRunning = true;
 }
@@ -65,6 +69,7 @@ void Engine::Update()
     float dt = Timer::GetInstance()->GetDeltaTime();
     m_LevelMap->Update();
     player->Update(dt);
+    Camera::GetInstance()->Update(dt);
 } 
 
 void Engine::Render()
@@ -72,7 +77,9 @@ void Engine::Render()
     SDL_SetRenderDrawColor(m_Renderer, 124, 218, 254, 255);
     SDL_RenderClear(m_Renderer);
 
+    TextureManager::GetInstance()->Draw("bg", 0, 0, 2100, 1050);
     m_LevelMap->Render();
+
     player->Draw();
     SDL_RenderPresent(m_Renderer);
 }
