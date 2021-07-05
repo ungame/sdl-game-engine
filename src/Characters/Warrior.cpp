@@ -14,11 +14,21 @@
 
 Warrior::Warrior(Properties* props): Character(props)
 {
+    m_IsRunning = false;
+    m_IsJumping = false;
+    m_IsFalling = false;
+    m_IsGrounded = false;
+    m_IsAttacking1 = false;
+    m_IsAttacking2 = false;
+    m_IsCrouching = false;
+
+    m_Flip = SDL_FLIP_NONE;
     m_JumpTime = JUMP_TIME;
     m_JumpForce = JUMP_FORCE;
+    m_AttackTime = ATTACK_TIME;
 
     m_Collider = new Collider();
-    m_Collider->SetBuffer(0, 0, 0, 0);
+    m_Collider->SetBuffer(-65, -53, 0, 0);
 
     m_RigidBody = new RigidBody();
     m_RigidBody->SetGravity(3.0f);
@@ -29,66 +39,111 @@ Warrior::Warrior(Properties* props): Character(props)
 
 void Warrior::Draw()
 {
-    m_Animation->Draw(m_Transform->X, m_Transform->Y, m_Width, m_Height);
+    m_Animation->Draw(m_Transform->X, m_Transform->Y, m_Width, m_Height, m_Flip);
 
-    Vector2D cam = Camera::GetInstance()->GetPosition();
-    SDL_Rect box = m_Collider->Get();
-    box.x -= cam.X;
-    box.y -= cam.Y;
-    SDL_RenderDrawRect(Engine::GetInstance()->GetRenderer(), &box);
+    // Vector2D cam = Camera::GetInstance()->GetPosition();
+    // SDL_Rect box = m_Collider->Get();
+    // box.x -= cam.X;
+    // box.y -= cam.Y;
+    // SDL_RenderDrawRect(Engine::GetInstance()->GetRenderer(), &box);
 }
 
 void Warrior::Update(float dt)
 {
 
-    m_Animation->SetProps("player", 0, 8, 100);
+    m_IsRunning = false;
+    m_IsCrouching = false;
     m_RigidBody->UnSetForce();
 
-    if ( Input::GetInstance()->GetKeyDown(SDL_SCANCODE_A) )
+    bool isAttacking = m_IsAttacking1 || m_IsAttacking2;
+
+    // correr para direita
+    if ( Input::GetInstance()->GetAxisKey(HORIZONTAL) == FORWARD && !isAttacking)
     {
-        m_RigidBody->ApplyForceX(BACKWARD * 5);
-        m_Animation->SetProps("player_run", 0, 8, 100, SDL_FLIP_HORIZONTAL);
+        m_RigidBody->ApplyForceX(FORWARD * RUN_FORCE);
+        m_Flip = SDL_FLIP_NONE;
+        m_IsRunning = true;
     }
 
-    if ( Input::GetInstance()->GetKeyDown(SDL_SCANCODE_D) )
+    // correr para a esquerda
+    if ( Input::GetInstance()->GetAxisKey(HORIZONTAL) == BACKWARD && !isAttacking)
     {
-        m_RigidBody->ApplyForceX(FORWARD * 5);
-        m_Animation->SetProps("player_run", 0, 8, 100);
+        m_RigidBody->ApplyForceX(BACKWARD * RUN_FORCE);
+        m_Flip = SDL_FLIP_HORIZONTAL;
+        m_IsRunning = true;
     }
-    
+
+    // agachar
+    if ( Input::GetInstance()->GetKeyDown(SDL_SCANCODE_S) )
+    {
+        m_RigidBody->UnSetForce();
+        m_IsCrouching = true;
+    }
+
+    // atacar 1
     if ( Input::GetInstance()->GetMouseButtonDown(SDL_BUTTON_LEFT) )
     {
-        m_Animation->SetProps("player_attack1", 0, 4, 100);
+        m_RigidBody->UnSetForce();
+        m_IsAttacking1 = true;
+        m_IsAttacking2 = !m_IsAttacking1;
     }
     
+    // atacar 2
     if ( Input::GetInstance()->GetMouseButtonDown(SDL_BUTTON_RIGHT) )
     {
-        m_Animation->SetProps("player_attack2", 0, 4, 100);
+        m_RigidBody->UnSetForce();
+        m_IsAttacking2 = true;
+        m_IsAttacking1 = !m_IsAttacking2;
     }
 
+    // pular
     if( Input::GetInstance()->GetKeyDown(SDL_SCANCODE_SPACE) && m_IsGrounded )
     {
         m_IsJumping = true;
         m_IsGrounded = false;
         m_RigidBody->ApplyForceY(UPWARD * m_JumpForce);
     }
-    if( Input::GetInstance()->GetKeyDown(SDL_SCANCODE_SPACE) && m_IsJumping && m_JumpTime > 0 )
+    if ( Input::GetInstance()->GetKeyDown(SDL_SCANCODE_SPACE) && m_IsJumping && m_JumpTime > 0)
     {
         m_JumpTime -= dt;
         m_RigidBody->ApplyForceY(UPWARD * m_JumpForce);
-    }
-    else {
+    } 
+    else 
+    {
         m_IsJumping = false;
         m_JumpTime = JUMP_TIME;
     }
 
-    int height = 111;
+    // cair
+    if( m_RigidBody->Velocity().Y > 0 && !m_IsGrounded )
+    {
+        m_IsFalling = true;
+    }
+    else 
+    {
+        m_IsFalling = false;
+    }
+
+    // tempo de ataque
+    if( (m_IsAttacking1 || m_IsAttacking2) && m_AttackTime > 0 )
+    {
+        m_AttackTime -= dt;
+    }
+    else 
+    {
+        m_IsAttacking1 = false;
+        m_IsAttacking2 = false;
+        m_AttackTime = ATTACK_TIME;
+    }
+
+    int boxWidth = 30;
+    int boxHeight = 51;
 
     // mover no eixo X
     m_RigidBody->Update(dt);
     m_LastSafePosition.X = m_Transform->X;
     m_Transform->X += m_RigidBody->Position().X;
-    m_Collider->Set(m_Transform->X, m_Transform->Y, height, height);
+    m_Collider->Set(m_Transform->X, m_Transform->Y, boxWidth, boxHeight);
 
     if( CollisionHandler::GetInstance()->MapCollision(m_Collider->Get()) )
     {
@@ -99,7 +154,7 @@ void Warrior::Update(float dt)
     m_RigidBody->Update(dt);
     m_LastSafePosition.Y = m_Transform->Y;
     m_Transform->Y += m_RigidBody->Position().Y;
-    m_Collider->Set(m_Transform->X, m_Transform->Y, height, height);
+    m_Collider->Set(m_Transform->X, m_Transform->Y, boxWidth, boxHeight);
 
     if( CollisionHandler::GetInstance()->MapCollision( m_Collider->Get() ) )
     {
@@ -110,15 +165,46 @@ void Warrior::Update(float dt)
         m_IsGrounded = false;
     }
 
-
-    if (m_IsJumping || !m_IsGrounded)
-    {
-        m_Animation->SetProps("player_jump", 0, 2, 150);
-    } 
-
     m_Origin->X = m_Transform->X + m_Width / 2;
     m_Origin->Y = m_Transform->Y + m_Height / 2;
+
+    AnimationState();
     m_Animation->Update();
+}
+
+void Warrior::AnimationState()
+{
+    m_Animation->SetProps("player_idle", 0, 8, 100);
+
+    if(m_IsRunning)
+    {
+        m_Animation->SetProps("player_run", 0, 8, 100);
+    }
+
+    if(m_IsCrouching)
+    {
+        m_Animation->SetProps("player_crouch", 0, 6, 200);
+    }
+
+    if(m_IsJumping)
+    {
+        m_Animation->SetProps("player_jump", 0, 2, 200);
+    }
+
+    if(m_IsFalling)
+    {
+        m_Animation->SetProps("player_fall", 0, 2, 200);
+    }
+
+    if(m_IsAttacking1)
+    {
+        m_Animation->SetProps("player_attack1", 0, 4, 200);
+    }
+
+    if(m_IsAttacking2)
+    {
+        m_Animation->SetProps("player_attack2", 0, 4, 200);
+    }
 }
 
 void Warrior::Clean()
