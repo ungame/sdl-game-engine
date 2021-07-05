@@ -22,8 +22,8 @@ class RigidBody
         }
 
         // Setter Gravity & Mass
-        inline void setMass(float mass) { m_Mass = mass; }
-        inline void setGravity(float gravity) { m_Gravity = gravity; }
+        inline void SetMass(float mass) { m_Mass = mass; }
+        inline void SetGravity(float gravity) { m_Gravity = gravity; }
 
         // Force
         inline void ApplyForce(Vector2D F) { m_Force = F; }
