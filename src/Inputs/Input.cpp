@@ -22,6 +22,18 @@ void Input::Listen()
             case SDL_QUIT: Engine::GetInstance()->Quit(); break;
             case SDL_KEYDOWN: KeyDown(); break;
             case SDL_KEYUP: KeyUp(); break;
+            case SDL_MOUSEBUTTONDOWN: {
+                m_MouseButtonDown = true;
+                m_MouseButtonUp = !m_MouseButtonDown;
+                m_MouseButton = event.button.button;
+                break;
+            };
+            case SDL_MOUSEBUTTONUP: {
+                m_MouseButtonUp = true;
+                m_MouseButtonDown = !m_MouseButtonUp;
+                m_MouseButton = event.button.button;
+            }
+           
         }
     }
 }
@@ -39,4 +51,9 @@ void Input::KeyUp()
 void Input::KeyDown()
 {
     m_KeyStates = SDL_GetKeyboardState(nullptr);
+}
+
+bool Input::GetMouseButtonDown(Uint8 mouseButton)
+{
+    return m_MouseButtonDown && m_MouseButton == mouseButton;
 }

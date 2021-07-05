@@ -39,6 +39,17 @@ void Warrior::Update(float dt)
         m_Animation->SetProps("player_run", 0, 8, 100);
     }
 
+    if ( Input::GetInstance()->GetMouseButtonDown(SDL_BUTTON_LEFT) )
+    {
+        m_Animation->SetProps("player_attack1", 0, 4, 100);
+    }
+    
+    if ( Input::GetInstance()->GetMouseButtonDown(SDL_BUTTON_RIGHT) )
+    {
+        m_Animation->SetProps("player_attack2", 0, 4, 100);
+    }
+
+
     // SDL_Log("%f", dt);
     m_RigidBody->Update(dt);
   

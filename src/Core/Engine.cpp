@@ -54,6 +54,9 @@ bool Engine::Init()
     SDL_Log("Loading textures...");
     TextureManager::GetInstance()->Load("player", "assets\\idle.png");
     TextureManager::GetInstance()->Load("player_run", "assets\\Run.png");
+    TextureManager::GetInstance()->Load("player_attack1", "assets\\Attack1.png");
+    TextureManager::GetInstance()->Load("player_attack2", "assets\\Attack2.png");
+    TextureManager::GetInstance()->Load("player_attack3", "assets\\Attack3.png");
     TextureManager::GetInstance()->Load("bg", "assets\\images\\bg.png");
 
     // propriedades depende do altura e largura do spritesheet
