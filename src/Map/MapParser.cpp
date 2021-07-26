@@ -42,7 +42,7 @@ bool MapParser::Parse(std::string id, std::string source)
         }
     }
 
-    SDL_Log("tilesets = %d", tilesets.size());
+    SDL_Log("tilesets = %d", (int)tilesets.size());
 
     // Parse Layers
     GameMap* gamemap = new GameMap();
@@ -56,7 +56,7 @@ bool MapParser::Parse(std::string id, std::string source)
 
     }
 
-    SDL_Log("maplayers = %d", gamemap->m_MapLayers.size());
+    SDL_Log("maplayers = %d", (int)gamemap->m_MapLayers.size());
 
     m_MapDict[id] = gamemap;
 

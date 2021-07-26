@@ -52,16 +52,7 @@ bool Engine::Init()
     m_LevelMap = MapParser::GetInstance()->GetMap("MAP");
 
     SDL_Log("Loading textures...");
-    TextureManager::GetInstance()->Load("player_idle", "assets\\Idle.png");
-    TextureManager::GetInstance()->Load("player_run", "assets\\Run.png");
-    TextureManager::GetInstance()->Load("player_jump", "assets\\Jump.png");
-    TextureManager::GetInstance()->Load("player_fall", "assets\\Fall.png");
-
-    TextureManager::GetInstance()->Load("player_crouch", "assets\\Death.png");
-    TextureManager::GetInstance()->Load("player_attack1", "assets\\Attack1.png");
-    TextureManager::GetInstance()->Load("player_attack2", "assets\\Attack2.png");
-
-    TextureManager::GetInstance()->Load("bg", "assets\\images\\bg.png");
+    TextureManager::GetInstance()->ParseTextures("assets/textures.tml");
 
     // propriedades depende do altura e largura do spritesheet
     player = new Warrior(new Properties("player", 100, 200, 1280 / 8, 111));
@@ -84,7 +75,7 @@ void Engine::Render()
     SDL_SetRenderDrawColor(m_Renderer, 124, 218, 254, 255);
     SDL_RenderClear(m_Renderer);
 
-    TextureManager::GetInstance()->Draw("bg", 0, 0, 2100, 1050);
+    TextureManager::GetInstance()->Draw("bg", 0, 0, 2100, 1050, 2, 2, 0.4);
     m_LevelMap->Render();
 
     player->Draw();

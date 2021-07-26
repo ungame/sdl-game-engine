@@ -50,8 +50,8 @@ class GameObject : public IObject
     protected:
         Point* m_Origin;
         Transform* m_Transform;
-        int m_Width, m_Height;
         std::string m_TextureID;
+        int m_Width, m_Height;
         SDL_RendererFlip m_Flip;
 };
 

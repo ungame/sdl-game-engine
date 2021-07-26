@@ -74,10 +74,9 @@ int Input::GetAxisKey(Axis axis)
             return -1;
 
         break;
-
-    default:
-        return 0;
     }
+
+    return 0;
 }
 
 bool Input::GetMouseButtonDown(Uint8 mouseButton)

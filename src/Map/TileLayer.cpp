@@ -27,12 +27,11 @@ TileLayer::TileLayer(int tileSize, int rowCount, int colCount, TileMap tileMap, 
 
 void TileLayer::Render()
 {
-    for(unsigned int i = 0; i < m_RowCount; i++)
+    for(int i = 0; i < m_RowCount; i++)
     {
-        for(unsigned int j = 0; j < m_ColCount; j++)
+        for(int j = 0; j < m_ColCount; j++)
         {
             int tileID = m_TileMap[i][j];
-            int temp = tileID;
 
             if(tileID == 0)
             {
