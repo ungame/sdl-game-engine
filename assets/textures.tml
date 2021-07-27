@@ -1,12 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <textures>
-    <texture id="player_run" source="assets/Run.png" />
-    <texture id="player_idle" source="assets/Idle.png" />
-    <texture id="player_jump" source="assets/Jump.png" />
-    <texture id="player_fall" source="assets/Fall.png" />
-    <texture id="player_crouch" source="assets/Death.png" />
-    <texture id="player_attack1" source="assets/Attack1.png" />
-    <texture id="player_attack2" source="assets/Attack2.png" />
+    <texture id="player_run" source="assets/player/Run.png" />
+    <texture id="player_idle" source="assets/player/Idle.png" />
+    <texture id="player_jump" source="assets/player/Jump.png" />
+    <texture id="player_fall" source="assets/player/Fall.png" />
+    <texture id="player_crouch" source="assets/player/Death.png" />
+    <texture id="player_attack1" source="assets/player/Attack1.png" />
+    <texture id="player_attack2" source="assets/player/Attack2.png" />
 
     <texture id="bg" source="assets/images/bg.png" />
+
+    <texture id="slime_idle0" source="assets/enemy/slime-idle-0.png" />
+    <texture id="slime_idle1" source="assets/enemy/slime-idle-1.png" />
+    <texture id="slime_idle2" source="assets/enemy/slime-idle-2.png" />
+    <texture id="slime_idle3" source="assets/enemy/slime-idle-3.png" />
+    
+    <texture id="slime_attack0" source="assets/enemy/slime-attack-0.png" />
+    <texture id="slime_attack1" source="assets/enemy/slime-attack-1.png" />
+    <texture id="slime_attack2" source="assets/enemy/slime-attack-2.png" />
+    <texture id="slime_attack3" source="assets/enemy/slime-attack-3.png" /> 
+    <texture id="slime_attack4" source="assets/enemy/slime-attack-3.png" />
+
+    <texture id="slime_move0" source="assets/enemy/slime-move-0.png" />
+    <texture id="slime_move1" source="assets/enemy/slime-move-1.png" />
+    <texture id="slime_move2" source="assets/enemy/slime-move-2.png" />
+    <texture id="slime_move3" source="assets/enemy/slime-move-3.png" />
+
+    <texture id="slime_hurt0" source="assets/enemy/slime-hurt-0.png" />
+    <texture id="slime_hurt1" source="assets/enemy/slime-hurt-1.png" />
+    <texture id="slime_hurt2" source="assets/enemy/slime-hurt-2.png" />
+    <texture id="slime_hurt3" source="assets/enemy/slime-hurt-3.png" />
+
+    <texture id="slime_die0" source="assets/enemy/slime-die-0.png" />
+    <texture id="slime_die1" source="assets/enemy/slime-die-1.png" />
+    <texture id="slime_die2" source="assets/enemy/slime-die-2.png" />
+    <texture id="slime_die3" source="assets/enemy/slime-die-3.png" />
 </textures>

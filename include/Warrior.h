@@ -2,7 +2,7 @@
 #define WARRIOR_H
 
 #include "Character.h"
-#include "Animation.h"
+#include "SpriteAnimation.h"
 #include "RigidBody.h"
 #include "Collider.h"
 #include "Vector2D.h"
@@ -39,7 +39,7 @@ class Warrior : public Character
         float m_AttackTime;
 
         Collider* m_Collider;
-        Animation* m_Animation;
+        SpriteAnimation* m_Animation;
         RigidBody* m_RigidBody;
         Vector2D m_LastSafePosition;
 };

@@ -1,6 +1,6 @@
 #include "Warrior.h"
 #include "TextureManager.h"
-#include "Animation.h"
+#include "SpriteAnimation.h"
 #include "RigidBody.h"
 #include "Input.h"
 #include "CollisionHandler.h"
@@ -33,13 +33,13 @@ Warrior::Warrior(Properties* props): Character(props)
     m_RigidBody = new RigidBody();
     m_RigidBody->SetGravity(3.0f);
 
-    m_Animation = new Animation();
+    m_Animation = new SpriteAnimation();
     m_Animation->SetProps(m_TextureID, 0, 8, 80);
 }
 
 void Warrior::Draw()
 {
-    m_Animation->Draw(m_Transform->X, m_Transform->Y, m_Width, m_Height, m_Flip);
+    m_Animation->Draw(m_Transform->X, m_Transform->Y, m_Width, m_Height, 1, 1, m_Flip);
 
     // Vector2D cam = Camera::GetInstance()->GetPosition();
     // SDL_Rect box = m_Collider->Get();
@@ -169,7 +169,8 @@ void Warrior::Update(float dt)
     m_Origin->Y = m_Transform->Y + m_Height / 2;
 
     AnimationState();
-    m_Animation->Update();
+    
+    m_Animation->Update(dt);
 }
 
 void Warrior::AnimationState()

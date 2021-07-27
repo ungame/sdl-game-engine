@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<animations>
+    <sequence id="slime_idle" frameCount="4" speed="100" width="32" height="25">
+        <frame textureID="slime_idle0" />
+        <frame textureID="slime_idle1" />
+        <frame textureID="slime_idle2" />
+        <frame textureID="slime_idle3" />
+    </sequence>
+
+    <sequence id="slime_attack" frameCount="5" speed="100" width="32" height="25">
+        <frame textureID="slime_attack0" />
+        <frame textureID="slime_attack1" />
+        <frame textureID="slime_attack2" />
+        <frame textureID="slime_attack3" />
+        <frame textureID="slime_attack4" />
+    </sequence>
+
+    <sequence id="slime_move" frameCount="4" speed="100" width="32" height="25">
+        <frame textureID="slime_move0" />
+        <frame textureID="slime_move1" />
+        <frame textureID="slime_move2" />
+        <frame textureID="slime_move3" />
+    </sequence>
+
+    <sequence id="slime_hurt" frameCount="4" speed="150" width="32" height="25">
+        <frame textureID="slime_hurt0" />
+        <frame textureID="slime_hurt1" />
+        <frame textureID="slime_hurt2" />
+        <frame textureID="slime_hurt3" />
+    </sequence>
+
+    <sequence id="slime_die" frameCount="4" speed="150" width="32" height="25">
+        <frame textureID="slime_die0" />
+        <frame textureID="slime_die1" />
+        <frame textureID="slime_die2" />
+        <frame textureID="slime_die3" />
+    </sequence>
+</animations>

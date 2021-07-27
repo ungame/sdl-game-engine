@@ -5,6 +5,8 @@
 #include "Warrior.h"
 #include "MapParser.h"
 #include "Camera.h"
+#include "Enemy.h"
+
 #include <iostream>
 
 #include <SDL2/SDL.h>
@@ -13,7 +15,7 @@
 
 Engine* Engine::s_Instance = nullptr;
 
-Warrior* player = nullptr;
+// Warrior* player = nullptr;
 
 bool Engine::Init()
 {
@@ -55,7 +57,11 @@ bool Engine::Init()
     TextureManager::GetInstance()->ParseTextures("assets/textures.tml");
 
     // propriedades depende do altura e largura do spritesheet
-    player = new Warrior(new Properties("player", 100, 200, 1280 / 8, 111));
+    Warrior* player = new Warrior(new Properties("player", 100, 200, 1280 / 8, 111));
+    Enemy* enemy = new Enemy(new Properties("enemy", 820, 240, 32, 25));
+
+    m_GameObjects.push_back(player);
+    m_GameObjects.push_back(enemy);
 
     Camera::GetInstance()->SetTarget(player->GetOrigin());
     
@@ -66,7 +72,12 @@ void Engine::Update()
 {
     float dt = Timer::GetInstance()->GetDeltaTime();
     m_LevelMap->Update();
-    player->Update(dt);
+
+    for(unsigned int i = 0; i < m_GameObjects.size(); i++)
+    {
+        m_GameObjects[i]->Update(dt);
+    }
+
     Camera::GetInstance()->Update(dt);
 } 
 
@@ -78,7 +89,11 @@ void Engine::Render()
     TextureManager::GetInstance()->Draw("bg", 0, 0, 2100, 1050, 2, 2, 0.4);
     m_LevelMap->Render();
 
-    player->Draw();
+    for(unsigned int i = 0; i < m_GameObjects.size(); i++)
+    {
+        m_GameObjects[i]->Draw();
+    }
+
     SDL_RenderPresent(m_Renderer);
 }
 
@@ -89,7 +104,12 @@ void Engine::Events()
 
 bool Engine::Clean()
 {
+    for(unsigned int i = 0; i < m_GameObjects.size(); i++)
+    {
+        m_GameObjects[i]->Clean();
+    }
     TextureManager::GetInstance()->Clean();
+    MapParser::GetInstance()->Clean();
     SDL_DestroyRenderer(m_Renderer);
     SDL_DestroyWindow(m_Window);
     IMG_Quit();

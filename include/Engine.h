@@ -1,12 +1,16 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
+#include "GameMap.h"
+#include "GameObject.h"
+
+#include <vector>
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include "GameMap.h"
 
-#define SCREEN_WIDTH 960
-#define SCREEN_HEIGHT 640
+#define SCREEN_WIDTH 1280
+#define SCREEN_HEIGHT 720
 
 class Engine
 {
@@ -36,6 +40,8 @@ class Engine
         SDL_Window* m_Window;
         SDL_Renderer* m_Renderer;
         static Engine* s_Instance;
+
+        std::vector<GameObject*> m_GameObjects;
 };
 
 #endif
