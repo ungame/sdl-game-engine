@@ -6,6 +6,7 @@
 #include "MapParser.h"
 #include "Camera.h"
 #include "Enemy.h"
+#include "ObjectFactory.h"
 
 #include <iostream>
 
@@ -57,8 +58,10 @@ bool Engine::Init()
     TextureManager::GetInstance()->ParseTextures("assets/textures.tml");
 
     // propriedades depende do altura e largura do spritesheet
-    Warrior* player = new Warrior(new Properties("player", 100, 200, 1280 / 8, 111));
-    Enemy* enemy = new Enemy(new Properties("enemy", 820, 240, 32, 25));
+    Properties* props = new Properties("player", 100, 200, 1280 / 8, 111);
+
+    GameObject* player = ObjectFactory::GetInstance()->CreateObject("PLAYER", props);
+    Enemy* enemy = new Enemy(new Properties("enemy", 870, 240, 32, 25));
 
     m_GameObjects.push_back(player);
     m_GameObjects.push_back(enemy);

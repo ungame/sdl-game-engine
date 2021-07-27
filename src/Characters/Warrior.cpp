@@ -6,11 +6,14 @@
 #include "CollisionHandler.h"
 #include "Collider.h"
 #include "Camera.h"
+#include "ObjectFactory.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <iostream>
 #include <windows.h>
+
+static Register<Warrior> player("PLAYER");
 
 Warrior::Warrior(Properties* props): Character(props)
 {
@@ -40,12 +43,7 @@ Warrior::Warrior(Properties* props): Character(props)
 void Warrior::Draw()
 {
     m_Animation->Draw(m_Transform->X, m_Transform->Y, m_Width, m_Height, 1, 1, m_Flip);
-
-    // Vector2D cam = Camera::GetInstance()->GetPosition();
-    // SDL_Rect box = m_Collider->Get();
-    // box.x -= cam.X;
-    // box.y -= cam.Y;
-    // SDL_RenderDrawRect(Engine::GetInstance()->GetRenderer(), &box);
+    m_Collider->Draw();
 }
 
 void Warrior::Update(float dt)

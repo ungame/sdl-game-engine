@@ -14,6 +14,7 @@ g++ -c src\Timer\*.cpp -std=c++14 -m64 -g -Wall -I include
 g++ -c src\Map\*.cpp -std=c++14 -m64 -g -Wall -I include
 g++ -c src\Camera\*.cpp -std=c++14 -m64 -g -Wall -I include
 g++ -c src\Collision\*.cpp -std=c++14 -m64 -g -Wall -I include
+g++ -c src\Factory\*.cpp -std=c++14 -m64 -g -Wall -I include
 
 move *.o obj
 
